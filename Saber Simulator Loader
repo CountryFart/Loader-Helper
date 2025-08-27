@@ -1,1 +1,313 @@
-local a=game:GetService("Players")local b=game:GetService("TweenService")local c=game:GetService("RunService")local d=game:GetService("UserInputService")local e=game:GetService("VirtualInputManager")local f=a.LocalPlayer;local g=f.Character or f.CharacterAdded:Wait()local h=g:WaitForChild("HumanoidRootPart")local i={Vector3.new(349.801025,198.626328,1460.024292),Vector3.new(387.053894,198.033615,1432.853271)}local j=1;local k=Instance.new("ScreenGui")k.Name="TeleporterGUI"k.Parent=f.PlayerGui;k.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;local l=Instance.new("Frame")l.Name="MainFrame"l.Size=UDim2.new(0,200,0,160)l.Position=UDim2.new(0.5,-100,0,10)l.BackgroundColor3=Color3.fromRGB(30,30,40)l.BorderSizePixel=0;l.Active=true;l.Draggable=true;l.Parent=k;local m=Instance.new("UICorner")m.CornerRadius=UDim.new(0,8)m.Parent=l;local n=Instance.new("Frame")n.Name="TitleBar"n.Size=UDim2.new(1,0,0,30)n.Position=UDim2.new(0,0,0,0)n.BackgroundColor3=Color3.fromRGB(20,20,30)n.BorderSizePixel=0;n.Parent=l;local o=Instance.new("UICorner")o.CornerRadius=UDim.new(0,8)o.Parent=n;local p=Instance.new("TextLabel")p.Name="Title"p.Size=UDim2.new(0,150,0,30)p.Position=UDim2.new(0,10,0,0)p.BackgroundTransparency=1;p.Text="Teleporter"p.TextColor3=Color3.fromRGB(255,255,255)p.TextXAlignment=Enum.TextXAlignment.Left;p.Font=Enum.Font.GothamBold;p.TextSize=16;p.Parent=n;local q=Instance.new("TextButton")q.Name="ToggleButton"q.Size=UDim2.new(0.8,0,0,40)q.Position=UDim2.new(0.1,0,0.25,-20)q.BackgroundColor3=Color3.fromRGB(50,50,60)q.BorderSizePixel=0;q.Text="OFF"q.TextColor3=Color3.fromRGB(255,255,255)q.Font=Enum.Font.Gotham;q.TextSize=14;q.Parent=l;local r=Instance.new("UICorner")r.CornerRadius=UDim.new(0,6)r.Parent=q;local s=Instance.new("TextButton")s.Name="SwitchButton"s.Size=UDim2.new(0.8,0,0,25)s.Position=UDim2.new(0.1,0,0.55,-10)s.BackgroundColor3=Color3.fromRGB(50,50,60)s.BorderSizePixel=0;s.Text="Switch Location (1)"s.TextColor3=Color3.fromRGB(255,255,255)s.Font=Enum.Font.Gotham;s.TextSize=12;s.Parent=l;local t=Instance.new("UICorner")t.CornerRadius=UDim.new(0,6)t.Parent=s;local u=Instance.new("TextButton")u.Name="LoaderButton"u.Size=UDim2.new(0.8,0,0,25)u.Position=UDim2.new(0.1,0,0.8,-5)u.BackgroundColor3=Color3.fromRGB(80,60,140)u.BorderSizePixel=0;u.Text="Load Script"u.TextColor3=Color3.fromRGB(255,255,255)u.Font=Enum.Font.Gotham;u.TextSize=12;u.Parent=l;local v=Instance.new("UICorner")v.CornerRadius=UDim.new(0,6)v.Parent=u;local w=Instance.new("ScreenGui")w.Name="ScriptSelectionGui"w.Parent=f.PlayerGui;w.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;w.Enabled=false;local x=Instance.new("Frame")x.Name="SelectionFrame"x.Size=UDim2.new(0,250,0,150)x.Position=UDim2.new(0.5,-125,0.5,-75)x.BackgroundColor3=Color3.fromRGB(30,30,40)x.BorderSizePixel=0;x.Active=true;x.Draggable=true;x.Parent=w;local y=Instance.new("UICorner")y.CornerRadius=UDim.new(0,8)y.Parent=x;local z=Instance.new("TextLabel")z.Name="SelectionTitle"z.Size=UDim2.new(1,0,0,30)z.Position=UDim2.new(0,0,0,0)z.BackgroundColor3=Color3.fromRGB(20,20,30)z.BorderSizePixel=0;z.Text="Select Script Version"z.TextColor3=Color3.fromRGB(255,255,255)z.Font=Enum.Font.GothamBold;z.TextSize=16;z.Parent=x;local A=Instance.new("UICorner")A.CornerRadius=UDim.new(0,8)A.Parent=z;local B=Instance.new("TextButton")B.Name="PremiumButton"B.Size=UDim2.new(0.8,0,0,40)B.Position=UDim2.new(0.1,0,0.3,0)B.BackgroundColor3=Color3.fromRGB(0,170,127)B.BorderSizePixel=0;B.Text="Premium Version"B.TextColor3=Color3.fromRGB(255,255,255)B.Font=Enum.Font.Gotham;B.TextSize=14;B.Parent=x;local C=Instance.new("UICorner")C.CornerRadius=UDim.new(0,6)C.Parent=B;local D=Instance.new("TextButton")D.Name="NormalButton"D.Size=UDim2.new(0.8,0,0,40)D.Position=UDim2.new(0.1,0,0.7,0)D.BackgroundColor3=Color3.fromRGB(50,50,60)D.BorderSizePixel=0;D.Text="Normal Version"D.TextColor3=Color3.fromRGB(255,255,255)D.Font=Enum.Font.Gotham;D.TextSize=14;D.Parent=x;local E=Instance.new("UICorner")E.CornerRadius=UDim.new(0,6)E.Parent=D;local F=false;local G=false;local function H()if not G then return end;h.CFrame=CFrame.new(i[j])end;q.MouseButton1Click:Connect(function()G=not G;if G then b:Create(q,TweenInfo.new(0.2),{BackgroundColor3=Color3.fromRGB(0,120,215)}):Play()q.Text="ON"else b:Create(q,TweenInfo.new(0.2),{BackgroundColor3=Color3.fromRGB(50,50,60)}):Play()q.Text="OFF"end end)s.MouseButton1Click:Connect(function()j=j%#i+1;s.Text="Switch Location ("..j..")"end)u.MouseButton1Click:Connect(function()w.Enabled=true end)B.MouseButton1Click:Connect(function()w.Enabled=false;loadstring(game:HttpGet("https://raw.githubusercontent.com/DEVIL-Script/DEVIL-Hub/refs/heads/main/Saber-Simulator-Auto-Save-Prem",true))()end)D.MouseButton1Click:Connect(function()w.Enabled=false;loadstring(game:HttpGet("https://raw.githubusercontent.com/DEVIL-Script/DEVIL-Hub/main/DEVIL-Hub-Main",true))()end)d.InputBegan:Connect(function(I,J)if J then return end;if I.UserInputType==Enum.UserInputType.MouseButton1 and w.Enabled then local K=d:GetMouseLocation()local L=x.AbsolutePosition;local M=x.AbsoluteSize;if K.X<L.X or K.X>L.X+M.X or K.Y<L.Y or K.Y>L.Y+M.Y then w.Enabled=false end end end)local function N()while true do if G then H()wait(1)else wait(0.1)end end end;coroutine.wrap(N)()local O=a.LocalPlayer;local P=true;local Q=10;local R=0.1;local S=0.3;local T={Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Space}local U=1;local function V(W,X)e:SendKeyEvent(true,W,false,game)task.wait(X)e:SendKeyEvent(false,W,false,game)end;local function Y()local Z=math.random(-10,10)local _=math.random(-10,10)e:SendMouseMoveEvent(Z,_,game)end;local function a0()if not P or not O or not O.Character then return end;if math.random(1,2)==1 then local X=math.random(R*100,S*100)/100;local a1=T[U]V(a1,X)U=U%#T+1;print("Anti-AFK: Pressed",a1.Name,"for",X,"seconds")else Y()print("Anti-AFK: Moved mouse slightly")end end;local function a2()while true do if P and O and O.Character then a0()end;task.wait(Q)end end;d.InputBegan:Connect(function(I,J)if J then return end;if I.KeyCode==Enum.KeyCode.F then P=not P;local a3=P and"ENABLED"or"DISABLED"print("Anti-AFK",a3)game.StarterGui:SetCore("SendNotification",{Title="Anti-AFK",Text=a3,Duration=2})end end)local function a4()while true do if P and O and O.Character then if math.random(1,5)==1 then local a5=workspace.CurrentCamera;if a5 then local a6=a5.CFrame;local a7=CFrame.Angles(math.rad(math.random(-5,5)),math.rad(math.random(-5,5)),0)a5.CFrame=a6*a7;print("Anti-AFK: Adjusted camera slightly")end end end;task.wait(Q*2)end end;print("Anti-AFK script loaded! Press F to toggle.")print("Current status: "..(P and"ENABLED"or"DISABLED"))task.spawn(a2)task.spawn(a4)O.CharacterAdded:Connect(function(g)print("Character respawned - Anti-AFK remains active")end)
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local TeleportLocations = {
+    Vector3.new(349.801025, 198.626328, 1460.024292),
+    Vector3.new(387.053894, 198.033615, 1432.853271)
+}
+local CurrentLocationIndex = 1
+
+-- Define user lists
+local PremiumUsers = {2240908381, 1282607174}
+local NormalUsers = {2240916508, 2240989223, 2240971826}
+
+-- Function to check if a value exists in a table
+local function TableContains(tbl, value)
+    for _, v in ipairs(tbl) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+
+-- Check user ID and load appropriate script or kick
+local function CheckUserAndLoadScript()
+    local userId = LocalPlayer.UserId
+
+    if TableContains(PremiumUsers, userId) then
+        -- Premium user - load premium script
+        loadstring(
+            game:HttpGet(
+                "https://raw.githubusercontent.com/DEVIL-Script/DEVIL-Hub/refs/heads/main/Saber-Simulator-Auto-Save-Prem",
+                true
+            )
+        )()
+        print("Premium script loaded for user:", userId)
+    elseif TableContains(NormalUsers, userId) then
+        -- Normal user - load normal script
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DEVIL-Script/DEVIL-Hub/main/DEVIL-Hub-Main", true))()
+        print("Normal script loaded for user:", userId)
+    else
+        -- User not in list, kick them
+        LocalPlayer:Kick("You are not authorized to use this script.")
+        print("Kicked unauthorized user:", userId)
+        return false
+    end
+    return true
+end
+
+-- Create GUI
+local TeleporterGUI = Instance.new("ScreenGui")
+TeleporterGUI.Name = "TeleporterGUI"
+TeleporterGUI.Parent = LocalPlayer.PlayerGui
+TeleporterGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 200, 0, 160)
+MainFrame.Position = UDim2.new(0.5, -100, 0, 10)
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = TeleporterGUI
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 8)
+UICorner.Parent = MainFrame
+
+local TitleBar = Instance.new("Frame")
+TitleBar.Name = "TitleBar"
+TitleBar.Size = UDim2.new(1, 0, 0, 30)
+TitleBar.Position = UDim2.new(0, 0, 0, 0)
+TitleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+TitleBar.BorderSizePixel = 0
+TitleBar.Parent = MainFrame
+
+local TitleBarCorner = Instance.new("UICorner")
+TitleBarCorner.CornerRadius = UDim.new(0, 8)
+TitleBarCorner.Parent = TitleBar
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(0, 150, 0, 30)
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Teleporter"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+Title.Parent = TitleBar
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Size = UDim2.new(0.8, 0, 0, 40)
+ToggleButton.Position = UDim2.new(0.1, 0, 0.25, -20)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+ToggleButton.BorderSizePixel = 0
+ToggleButton.Text = "OFF"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.Font = Enum.Font.Gotham
+ToggleButton.TextSize = 14
+ToggleButton.Parent = MainFrame
+
+local ToggleButtonCorner = Instance.new("UICorner")
+ToggleButtonCorner.CornerRadius = UDim.new(0, 6)
+ToggleButtonCorner.Parent = ToggleButton
+
+local SwitchButton = Instance.new("TextButton")
+SwitchButton.Name = "SwitchButton"
+SwitchButton.Size = UDim2.new(0.8, 0, 0, 25)
+SwitchButton.Position = UDim2.new(0.1, 0, 0.55, -10)
+SwitchButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+SwitchButton.BorderSizePixel = 0
+SwitchButton.Text = "Switch Location (1)"
+SwitchButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+SwitchButton.Font = Enum.Font.Gotham
+SwitchButton.TextSize = 12
+SwitchButton.Parent = MainFrame
+
+local SwitchButtonCorner = Instance.new("UICorner")
+SwitchButtonCorner.CornerRadius = UDim.new(0, 6)
+SwitchButtonCorner.Parent = SwitchButton
+
+local LoaderButton = Instance.new("TextButton")
+LoaderButton.Name = "LoaderButton"
+LoaderButton.Size = UDim2.new(0.8, 0, 0, 25)
+LoaderButton.Position = UDim2.new(0.1, 0, 0.8, -5)
+LoaderButton.BackgroundColor3 = Color3.fromRGB(80, 60, 140)
+LoaderButton.BorderSizePixel = 0
+LoaderButton.Text = "Load Script"
+LoaderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoaderButton.Font = Enum.Font.Gotham
+LoaderButton.TextSize = 12
+LoaderButton.Parent = MainFrame
+
+local LoaderButtonCorner = Instance.new("UICorner")
+LoaderButtonCorner.CornerRadius = UDim.new(0, 6)
+LoaderButtonCorner.Parent = LoaderButton
+
+local IsTeleporting = false
+
+local function TeleportToLocation()
+    if not IsTeleporting then
+        return
+    end
+    HumanoidRootPart.CFrame = CFrame.new(TeleportLocations[CurrentLocationIndex])
+end
+
+ToggleButton.MouseButton1Click:Connect(
+    function()
+        IsTeleporting = not IsTeleporting
+        if IsTeleporting then
+            TweenService:Create(ToggleButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(0, 120, 215)}):Play(
+
+            )
+            ToggleButton.Text = "ON"
+        else
+            TweenService:Create(ToggleButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 60)}):Play(
+
+            )
+            ToggleButton.Text = "OFF"
+        end
+    end
+)
+
+SwitchButton.MouseButton1Click:Connect(
+    function()
+        CurrentLocationIndex = CurrentLocationIndex % #TeleportLocations + 1
+        SwitchButton.Text = "Switch Location (" .. CurrentLocationIndex .. ")"
+    end
+)
+
+LoaderButton.MouseButton1Click:Connect(
+    function()
+        CheckUserAndLoadScript()
+    end
+)
+
+-- Auto-execute the script when GUI loads
+local function AutoExecuteScript()
+    local success = CheckUserAndLoadScript()
+    if success then
+        LoaderButton.Text = "Script Loaded"
+        LoaderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+    else
+        LoaderButton.Text = "Not Authorized"
+        LoaderButton.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+    end
+end
+
+-- Run the auto-execute function
+AutoExecuteScript()
+
+local function TeleportLoop()
+    while true do
+        if IsTeleporting then
+            TeleportToLocation()
+            wait(1)
+        else
+            wait(0.1)
+        end
+    end
+end
+
+coroutine.wrap(TeleportLoop)()
+
+-- Anti-AFK system
+local AntiAFKEnabled = true
+local AntiAFKInterval = 10
+local MinKeyPressDuration = 0.1
+local MaxKeyPressDuration = 0.3
+local MovementKeys = {Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D, Enum.KeyCode.Space}
+local CurrentKeyIndex = 1
+
+local function SendKeyPress(key, duration)
+    VirtualInputManager:SendKeyEvent(true, key, false, game)
+    task.wait(duration)
+    VirtualInputManager:SendKeyEvent(false, key, false, game)
+end
+
+local function SlightlyMoveMouse()
+    local xOffset = math.random(-10, 10)
+    local yOffset = math.random(-10, 10)
+    VirtualInputManager:SendMouseMoveEvent(xOffset, yOffset, game)
+end
+
+local function PerformAntiAFKAction()
+    if not AntiAFKEnabled or not LocalPlayer or not LocalPlayer.Character then
+        return
+    end
+
+    if math.random(1, 2) == 1 then
+        local duration = math.random(MinKeyPressDuration * 100, MaxKeyPressDuration * 100) / 100
+        local key = MovementKeys[CurrentKeyIndex]
+        SendKeyPress(key, duration)
+        CurrentKeyIndex = CurrentKeyIndex % #MovementKeys + 1
+        print("Anti-AFK: Pressed", key.Name, "for", duration, "seconds")
+    else
+        SlightlyMoveMouse()
+        print("Anti-AFK: Moved mouse slightly")
+    end
+end
+
+local function AntiAFKLoop()
+    while true do
+        if AntiAFKEnabled and LocalPlayer and LocalPlayer.Character then
+            PerformAntiAFKAction()
+        end
+        task.wait(AntiAFKInterval)
+    end
+end
+
+UserInputService.InputBegan:Connect(
+    function(input, gameProcessed)
+        if gameProcessed then
+            return
+        end
+
+        if input.KeyCode == Enum.KeyCode.F then
+            AntiAFKEnabled = not AntiAFKEnabled
+            local status = AntiAFKEnabled and "ENABLED" or "DISABLED"
+            print("Anti-AFK", status)
+            game.StarterGui:SetCore(
+                "SendNotification",
+                {
+                    Title = "Anti-AFK",
+                    Text = status,
+                    Duration = 2
+                }
+            )
+        end
+    end
+)
+
+local function CameraAdjustLoop()
+    while true do
+        if AntiAFKEnabled and LocalPlayer and LocalPlayer.Character then
+            if math.random(1, 5) == 1 then
+                local camera = workspace.CurrentCamera
+                if camera then
+                    local originalCFrame = camera.CFrame
+                    local randomAdjustment =
+                        CFrame.Angles(math.rad(math.random(-5, 5)), math.rad(math.random(-5, 5)), 0)
+                    camera.CFrame = originalCFrame * randomAdjustment
+                    print("Anti-AFK: Adjusted camera slightly")
+                end
+            end
+        end
+        task.wait(AntiAFKInterval * 2)
+    end
+end
+
+print("Anti-AFK script loaded! Press F to toggle.")
+print("Current status: " .. (AntiAFKEnabled and "ENABLED" or "DISABLED"))
+task.spawn(AntiAFKLoop)
+task.spawn(CameraAdjustLoop)
+
+LocalPlayer.CharacterAdded:Connect(
+    function(character)
+        print("Character respawned - Anti-AFK remains active")
+    end
+)
+
+print("Script loaded successfully.")
